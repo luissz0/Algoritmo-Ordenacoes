@@ -3,7 +3,11 @@
 #define TAM 10
 
 void imprimeVetor(int vetor[]){
-    printf("Entrou");
+    int i;
+    printf("\n");
+    for(i = 0; i < TAM; i++){
+        printf("|%d|", vetor[i]);
+    }
 }
 
 //Junta os dois subarrava criados ao dividir o vetor principal
@@ -18,12 +22,12 @@ void merge(int vetor[TAM], int indiceEsquerdo, int meio, int indiceDireito){
 
     //Passa os elementos do vetor principal para o primeiro vetor auxiliar (Esquerda)
     for(i = 0; i < n1; i++){
-        vetorEsquerdo[i] = vetor[indiceEsquerdo + 1];
+        vetorEsquerdo[i] = vetor[indiceEsquerdo + i];
     }
 
     //Passa os elementos do vetor principal para o primeiro vetor auxiliar (Direito)
-    for(i = 0; i < n2; i++){
-        vetorDireito[i] = vetor[meio + 1 + j];
+    for(j = 0; j < n2; j++){
+        vetorDireito[j] = vetor[meio + 1 + j];
     }
 
     //Reseta as variáveis
@@ -31,7 +35,7 @@ void merge(int vetor[TAM], int indiceEsquerdo, int meio, int indiceDireito){
     j = 0;
     k = indiceEsquerdo;
 
-    while(i < n1 && j < n2){
+    while((i < n1) && ( j < n2)){
         //Caso o valor na esquerda seja menor
         if(vetorEsquerdo[i] <= vetorDireito[j]){
             //Passo para o meu vetor principal o valor meno
@@ -60,14 +64,15 @@ void merge(int vetor[TAM], int indiceEsquerdo, int meio, int indiceDireito){
 
     //Se faltarem alguns elementos do array DIREITO, passa eles para o array principal
     while(j < n2){
-        vetor[k] = vetorEsquerdo[i];
-        i++;
+        vetor[k] = vetorDireito[j];
+        j++;
         k++;
     }
 
 }
 
-void merge_sort(int vetor[TAM], int indiceEsquerdo, int indiceDireito){
+void merge_sort(int vetor[TAM], int indiceEsquerdo, int indiceDireito)
+{
     if(indiceEsquerdo < indiceDireito){
 
         //Encontra o meio
@@ -78,6 +83,10 @@ void merge_sort(int vetor[TAM], int indiceEsquerdo, int indiceDireito){
 
         //Da metade para frente
         merge_sort(vetor, meio+1, indiceDireito);
+
+        // Imprimindo
+        imprimeVetor(vetor);
+
 
         //Une os dois subarrava que foram criados
         merge(vetor, indiceEsquerdo, meio, indiceDireito);
@@ -90,7 +99,9 @@ int main(){
 
     int vetor[TAM] = {10,9,8,7,6,5,4,3,2,1};
 
-    merge_sort(vetor, 0, TAM);
+    imprimeVetor(vetor);
+
+    merge_sort(vetor, 0, TAM - 1);
 
     imprimeVetor(vetor);
 
