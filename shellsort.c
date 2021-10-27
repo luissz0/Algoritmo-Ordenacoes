@@ -11,7 +11,6 @@ void imprimeVetor(int vetor[]){
 }
 
 void shell_sort(int vetor[TAM]){
-    printf("|%d|", vetor[i]);
     int i, j, atual;
     int h = 1;
 
